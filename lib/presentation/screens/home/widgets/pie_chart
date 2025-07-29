@@ -1,0 +1,74 @@
+import 'package:flutter/material.dart';
+import 'package:fl_chart/fl_chart.dart';
+import 'package:money_tracker_app/core/constants/app_colors.dart';
+import 'package:money_tracker_app/data/models/category_summary.dart';
+
+class PieChartWidget extends StatelessWidget {
+  final int totalAmount;
+  final List<CategorySummary> categorySummaries;
+
+  const PieChartWidget({
+    super.key,
+    required this.totalAmount,
+    required this.categorySummaries,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return AspectRatio(
+      aspectRatio: 1,
+      child: PieChart(
+        PieChartData(
+          pieTouchData: PieTouchData(enabled: false), // For simplicity, no touch events
+          borderData: FlBorderData(show: false),
+          sectionsSpace: 0,
+          centerSpaceRadius: 40, // Adjust for the center text
+          sections: _buildPieChartSections(categorySummaries),
+        ),
+        swapAnimationDuration: const Duration(milliseconds: 150), // Optional
+        swapAnimationCurve: Curves.linear, // Optional
+      ),
+    );
+  }
+
+  List<PieChartSectionData> _buildPieChartSections(List<CategorySummary> summaries) {
+    if (summaries.isEmpty) {
+      return [
+        PieChartSectionData(
+          color: AppColors.secondaryText.withOpacity(0.5),
+          value: 100,
+          title: 'No Data',
+          radius: 60,
+          titleStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.primaryText),
+        )
+      ];
+    }
+    return summaries.map((summary) {
+      return PieChartSectionData(
+        color: summary.color,
+        value: summary.percentage,
+        title: '${summary.percentage.toStringAsFixed(1)}%', // Display percentage on slice
+        radius: 60, // Size of the pie chart section
+        titleStyle: const TextStyle(
+          fontSize: 12, // Adjusted font size
+          fontWeight: FontWeight.bold,
+          color: AppColors.primaryText,
+          shadows: [Shadow(color: Colors.black, blurRadius: 2)], // For better readability
+        ),
+        badgeWidget: totalAmount > 0 // Only show center text if there's data
+            ? Center(
+                child: Text(
+                  totalAmount.toString(), // Display total amount in center
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.primaryText,
+                  ),
+                ),
+              )
+            : null,
+        badgePositionPercentageOffset: 0.98, // To control where text is shown in relation to pie chart
+      );
+    }).toList();
+  }
+}
