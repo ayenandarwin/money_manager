@@ -712,19 +712,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
     super.dispose();
   }
 
-  // Helper to get category icon (can be reused from RecordsScreen)
-  // This is a local helper for AddTransactionScreen, not the global one.
-  // IconData _getCategoryIcon(String categoryName) {
-  //   for (var type in _categories.keys) {
-  //     for (var cat in _categories[type]!) {
-  //       if (cat['name'] == categoryName) {
-  //         return cat['icon'] as IconData;
-  //       }
-  //     }
-  //   }
-  //   return Icons.category; // Default icon
-  // }
-
+  
   // Handles calculator button presses
   void _onCalculatorButtonPressed(String buttonText) {
     final currentAmount = ref.read(currentAmountInputProvider);

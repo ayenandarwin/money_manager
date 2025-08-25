@@ -259,21 +259,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                                         passwordController.text,
                                                   )
                                                   .then((value) async {
-                                                   // debugPrint(value);
-                                                    // var status =
-                                                    //     value["responseMessage"];
-                                                    // if (status.toString() ==
-                                                    //     "Success") {
-                                                    //   // var token = value[
-                                                    //   //     "access_token"];
-                                                    //   var token =
-                                                    //       value["data"]["access_token"];
+                                                
                                                     var status =
-                                                          value["accessToken"];
-                                                      if (status.isNotEmpty
-                                                          ) {
-                                                        var token =
-                                                            value["accessToken"]; // <-- Fix here
+                                                        value["accessToken"];
+                                                    if (status.isNotEmpty) {
+                                                      var token =
+                                                          value["accessToken"]; // <-- Fix here
 
                                                       if (token != null) {
                                                         await SharedPref.setData(
@@ -282,31 +273,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                                         );
                                                       }
 
-                                                      // var status =
-                                                      //     value["responseMessage"];
-                                                      // if (status.toString() ==
-                                                      //     "Success") {
-                                                      //   var token =
-                                                      //       value["accessToken"]; // <-- Fix here
-
-                                                      //   if (token != null) {
-                                                      //     await SharedPref.setData(
-                                                      //       key:
-                                                      //           SharedPref
-                                                      //               .token,
-                                                      //       value: "$token",
-                                                      //     );
-                                                      //   }
-                                                      // }
-
-                                                      // await SharedPref.setData(
-                                                      //     key: SharedPref.token,
-                                                      //     value:
-                                                      //          "Bearer $token"
-                                                      //        // "$token"
-                                                      //         );
-
-                                                      debugPrint('token $token');
+                                                      debugPrint(
+                                                        'token $token',
+                                                      );
                                                       if (_remember) {
                                                         print("Remember");
                                                       }

@@ -21,7 +21,7 @@ class SummarySection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16.0),
-      color: AppColors.primaryBackground, // သင့်ရဲ့ background အရောင်
+      color: AppColors.primaryBackground, 
       child: Column(
         children: [
           Row(
