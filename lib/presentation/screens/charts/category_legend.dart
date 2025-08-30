@@ -23,7 +23,7 @@ class CategoryLegend extends StatelessWidget {
                     height: 12,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: summary.color,
+                      color: Color(summary.colorValue),
                     ),
                   ),
                   const SizedBox(width: 8),

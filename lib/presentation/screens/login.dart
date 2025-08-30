@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:money_manager_app/presentation/screens/navi_screen.dart';
 import 'package:money_manager_app/service/authorizeService.dart';
+import 'package:money_manager_app/service/hive_service.dart';
 import 'package:money_manager_app/utils/color.dart';
 import 'package:money_manager_app/utils/global.dart';
 import 'package:money_manager_app/utils/sharedPref.dart';
@@ -267,10 +268,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                                           value["accessToken"]; // <-- Fix here
 
                                                       if (token != null) {
-                                                        await SharedPref.setData(
-                                                          key: SharedPref.token,
-                                                          value: "$token",
-                                                        );
+                                                        // await SharedPref.setData(
+                                                        //   key: SharedPref.token,
+                                                        //   value: "$token",
+                                                        // );
+                                                        await HiveCacheManager().saveToken(token);
+
+
                                                       }
 
                                                       debugPrint(

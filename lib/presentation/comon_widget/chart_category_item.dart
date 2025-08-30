@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:money_manager_app/core/constants/app_color.dart';
+import 'package:money_manager_app/core/constants/icon_mapper.dart';
 import 'package:money_manager_app/data/model/category_summary.dart';
 
 class ChartCategoryItem extends StatelessWidget {
@@ -17,7 +18,7 @@ class ChartCategoryItem extends StatelessWidget {
             children: [
               CircleAvatar(
                 backgroundColor: AppColors.bottomNavBackground,
-                child: Icon(summary.icon, color: AppColors.secondaryText),
+                child: Icon(getIconFromString(summary.icon), color: AppColors.secondaryText),
               ),
               const SizedBox(width: 12),
               Expanded(
@@ -52,7 +53,7 @@ class ChartCategoryItem extends StatelessWidget {
           LinearProgressIndicator(
             value: summary.percentage / 100, // Normalized to 0.0 to 1.0
             backgroundColor: AppColors.secondaryText.withOpacity(0.3),
-            valueColor: AlwaysStoppedAnimation<Color>(summary.color),
+            valueColor: AlwaysStoppedAnimation<Color>(Color(summary.colorValue)),
             minHeight: 4,
             borderRadius: BorderRadius.circular(2),
           ),

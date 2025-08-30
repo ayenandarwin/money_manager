@@ -3,12 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:money_manager_app/data/model/transactions.dart';
 import 'package:money_manager_app/model/dashboard.dart';
+import 'package:money_manager_app/provider/dashboard_provider.dart';
 import 'package:money_manager_app/provider/transaction.dart';
-import 'package:money_manager_app/service/dashboard.dart';
-
-final dashboardProvider = FutureProvider<DashboardData>((ref) async {
-  return await DashboardService.fetchDashboardData();
-});
+import 'package:money_manager_app/provider/user_provider.dart';
+import 'package:money_manager_app/service/remote/dashboard.dart';
 
 class RecordsScreen extends ConsumerStatefulWidget {
   const RecordsScreen({super.key});
@@ -36,7 +34,7 @@ class _RecordsScreenState extends ConsumerState<RecordsScreen> {
   Widget build(BuildContext context) {
     final transactions = ref.watch(transactionsProvider);
     final formattedDate = DateFormat('MMM d').format(selectedDate);
-    final dashboardAsync = ref.watch(dashboardProvider);
+    final dashboardAsync = ref.watch(dashboardDataProvider);
 
     // Group transactions by date
     final Map<DateTime, List<Transaction>> groupedTransactions = {};
@@ -425,16 +423,16 @@ class _RecordsScreenState extends ConsumerState<RecordsScreen> {
   }
 }
 
-final dashboardProviders = FutureProvider<DashboardData>((ref) async {
-  return await DashboardService.fetchDashboardData();
-});
+// final dashboardProviders = FutureProvider<DashboardData>((ref) async {
+//   return await DashboardService.fetchDashboardData();
+// });
 
 class RecordsScreens extends ConsumerWidget {
   const RecordsScreens({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final dashboardAsync = ref.watch(dashboardProvider);
+    final dashboardAsync = ref.watch(dashboardDataProvider);
 
     return Scaffold(
       appBar: AppBar(

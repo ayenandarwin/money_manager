@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:money_manager_app/utils/sharedPref.dart';
+import 'package:money_manager_app/service/hive_service.dart';
 
 class Global {
   //Default Token
@@ -102,8 +102,9 @@ class Global {
   static bool isLogIn = false;
 
   static Future loginStatus() async {
-    var tokentemp = await SharedPref.getData(key: SharedPref.token);
-
+    // var tokentemp = await SharedPref.getData(key: SharedPref.token);
+ 
+    var tokentemp = HiveCacheManager().getToken();
     if (tokentemp == null) {
       isLogIn = false;
     } else {

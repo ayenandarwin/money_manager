@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
+import 'package:money_manager_app/service/exception/http_exception.dart';
 import 'package:money_manager_app/utils/api.dart';
-import '../httpServic/httpException.dart';
 
 final authServiceProvider = Provider<AuthService>((ref) {
   return AuthService(Dio());

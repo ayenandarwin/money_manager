@@ -3,23 +3,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import 'package:money_manager_app/model/user.dart';
 import 'package:money_manager_app/presentation/screens/login.dart';
 import 'package:money_manager_app/provider/common.dart';
-import 'package:money_manager_app/service/user.dart';
+import 'package:money_manager_app/provider/user_provider.dart';
 import 'package:money_manager_app/utils/color.dart';
 
-//final userServiceProvider = Provider((ref) => UserService());
-final userProfileProvider = FutureProvider<UserModel>((ref) async {
-  return await UserService.fetchDashboardData();
-});
+// //final userServiceProvider = Provider((ref) => UserService());
+// final userProfileProvider = FutureProvider<UserModel>((ref) async {
+//   return await UserService.fetchDashboardData();
+// });
+
+
 
 class Setting extends ConsumerWidget {
   const Setting({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userProfile = ref.watch(userProfileProvider);
+    final userProfile = ref.watch(userDataProvider);
 
     return SafeArea(
       child: Scaffold(
