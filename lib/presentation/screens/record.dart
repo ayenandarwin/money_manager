@@ -5,8 +5,6 @@ import 'package:money_manager_app/data/model/transactions.dart';
 import 'package:money_manager_app/model/dashboard.dart';
 import 'package:money_manager_app/provider/dashboard_provider.dart';
 import 'package:money_manager_app/provider/transaction.dart';
-import 'package:money_manager_app/provider/user_provider.dart';
-import 'package:money_manager_app/service/remote/dashboard.dart';
 
 class RecordsScreen extends ConsumerStatefulWidget {
   const RecordsScreen({super.key});

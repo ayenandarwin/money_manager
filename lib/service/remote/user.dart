@@ -20,7 +20,7 @@ class UserService {
 
     try {
       final response = await DioClient.dio.get(
-        APIURL.mainUrl,
+        '${APIURL.mainUrl}/me',
         options: Options(
           headers: {
             'Authorization': 'Bearer $token', // Make sure token is valid
