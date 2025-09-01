@@ -5,13 +5,13 @@ part 'income.g.dart';
 @freezed
 abstract class Income with _$Income {
   const factory Income({
-    required int id,
+    int? id,
     required double amount,
     required int userId,
     required int providerId,
     required String description,
-    required DateTime createdAt,
-    required DateTime updatedAt,
+    DateTime? createdAt,
+    DateTime? updatedAt,
   }) = _Income;
 
   factory Income.fromJson(Map<String, dynamic> json) =>

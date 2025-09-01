@@ -1,11 +1,12 @@
 import 'package:dio/dio.dart';
+import 'package:money_manager_app/data/model/transaction.dart';
 import 'package:money_manager_app/data/model/transactions.dart';
 import 'package:money_manager_app/utils/api.dart';
 
 class TransactionService {
   final Dio _dio = Dio(BaseOptions(baseUrl: APIURL.mainUrl));
 
-  Future<List<TransactionModel>> getTransactions(String token) async {
+  Future<List<Transaction>> getTransactions(String token) async {
     final response = await _dio.get(
       '/transactions',
       options: Options(
@@ -19,17 +20,17 @@ class TransactionService {
     final List<dynamic> data = response.data;
 
     return data.map((json) {
-      final typeString = json['type'] as String;
-      final type = TransactionType.values.firstWhere(
-        (e) => e.toString().split('.').last == typeString,
-        orElse: () => TransactionType.expense,
-      );
+      // final typeString = json['type'] as String;
+      // final type = TransactionType.values.firstWhere(
+      //   (e) => e.toString().split('.').last == typeString,
+      //   orElse: () => TransactionType.expense,
+      // );
 
-      return TransactionModel.fromJson(json, type);
+      return Transaction.fromJson(json);
     }).toList();
   }
 
-  Future<TransactionModel> getTransactionDetail(int id, String token) async {
+  Future<Transaction> getTransactionDetail(int id, String token) async {
     final response = await _dio.get(
       '/transactions/$id',
       options: Options(
@@ -40,13 +41,13 @@ class TransactionService {
       ),
     );
 
-    final json = response.data;
-    final typeString = json['type'] as String;
-    final type = TransactionType.values.firstWhere(
-      (e) => e.toString().split('.').last == typeString,
-      orElse: () => TransactionType.expense,
-    );
+     final json = response.data;
+    // final typeString = json['type'] as String;
+    // final type = TransactionType.values.firstWhere(
+    //   (e) => e.toString().split('.').last == typeString,
+    //   orElse: () => TransactionType.expense,
+    // );
 
-    return TransactionModel.fromJson(json, type);
+    return Transaction.fromJson(json);
   }
 }

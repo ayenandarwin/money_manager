@@ -87,7 +87,7 @@ class _RecordsScreenState extends ConsumerState<RecordsScreen> {
 
                     final dailyExpenses = dailyTransactions
                         .where(
-                          (t) => t.type == TransactionTypes.expense,
+                          (t) => t.type == TransactionType.expense,
                           // entry.expense,
                         )
                         .fold(0.0, (sum, t) => sum + t.amount);

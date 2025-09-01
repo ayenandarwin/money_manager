@@ -1,6 +1,6 @@
 // Provider for managing the currently selected bottom navigation index
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:money_manager_app/data/model/transactions.dart';
+import 'package:money_manager_app/data/model/transaction.dart';
 
 final bottomNavIndexProvider = StateProvider<int>((ref) => 0);
 

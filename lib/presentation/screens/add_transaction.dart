@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:money_manager_app/data/model/transactions.dart';
+import 'package:money_manager_app/data/model/transaction.dart';
 import 'package:money_manager_app/provider/common.dart';
 import 'package:money_manager_app/provider/transaction.dart';
 import 'package:money_manager_app/utils/color.dart';
@@ -221,7 +221,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
         description: note.isEmpty ? null : note,
       );
 
-      ref.read(transactionsProvider.notifier).addTransaction(newTransaction);
+      ref.read(transactionsProvider.notifier).addIncomeTransation(newTransaction,ref);
       Navigator.of(context).pop(); // Go back to previous screen
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

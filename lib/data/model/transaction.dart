@@ -17,6 +17,7 @@
 //     this.description,
 //   });
 
+//   // Factory constructor to create a Transaction from a map (e.g., from Firestore)
 //   factory Transaction.fromMap(Map<String, dynamic> map) {
 //     return Transaction(
 //       id: map['id'] as String,
@@ -32,6 +33,7 @@
 //     );
 //   }
 
+//   // Convert Transaction to a map (e.g., for Firestore)
 //   Map<String, dynamic> toMap() {
 //     return {
 //       'id': id,
@@ -43,6 +45,8 @@
 //     };
 //   }
 // }
+
+// //new
 
 // enum TransactionTypes { income, expense }
 
@@ -63,10 +67,7 @@
 //     required this.type,
 //   });
 
-//   factory TransactionModel.fromJson(
-//     Map<String, dynamic> json,
-//     TransactionType type,
-//   ) {
+//   factory TransactionModel.fromJson(Map<String, dynamic> json, TransactionType type) {
 //     return TransactionModel(
 //       id: json['id'],
 //       amount: json['amount'],
@@ -77,3 +78,25 @@
 //     );
 //   }
 // }
+
+
+import 'package:freezed_annotation/freezed_annotation.dart';
+part 'transaction.freezed.dart';
+part 'transaction.g.dart';
+
+enum TransactionType { expense, income, transfer } // Added transfer type
+
+@freezed
+abstract class Transaction with _$Transaction {
+  const factory Transaction({
+    required String id,
+    required String category,
+    required double amount,
+    required TransactionType type,
+    required DateTime date,
+    String? description, // Optional description
+  }) = _Transaction;
+
+  factory Transaction.fromJson(Map<String, dynamic> json) =>
+      _$TransactionFromJson(json);
+}

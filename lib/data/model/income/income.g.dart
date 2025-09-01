@@ -7,13 +7,17 @@ part of 'income.dart';
 // **************************************************************************
 
 _Income _$IncomeFromJson(Map<String, dynamic> json) => _Income(
-  id: (json['id'] as num).toInt(),
+  id: (json['id'] as num?)?.toInt(),
   amount: (json['amount'] as num).toDouble(),
   userId: (json['userId'] as num).toInt(),
   providerId: (json['providerId'] as num).toInt(),
   description: json['description'] as String,
-  createdAt: DateTime.parse(json['createdAt'] as String),
-  updatedAt: DateTime.parse(json['updatedAt'] as String),
+  createdAt: json['createdAt'] == null
+      ? null
+      : DateTime.parse(json['createdAt'] as String),
+  updatedAt: json['updatedAt'] == null
+      ? null
+      : DateTime.parse(json['updatedAt'] as String),
 );
 
 Map<String, dynamic> _$IncomeToJson(_Income instance) => <String, dynamic>{
@@ -22,6 +26,6 @@ Map<String, dynamic> _$IncomeToJson(_Income instance) => <String, dynamic>{
   'userId': instance.userId,
   'providerId': instance.providerId,
   'description': instance.description,
-  'createdAt': instance.createdAt.toIso8601String(),
-  'updatedAt': instance.updatedAt.toIso8601String(),
+  'createdAt': instance.createdAt?.toIso8601String(),
+  'updatedAt': instance.updatedAt?.toIso8601String(),
 };

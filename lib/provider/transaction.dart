@@ -1,6 +1,10 @@
 // Provider for managing the list of transactions
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:money_manager_app/data/model/transactions.dart';
+import 'package:money_manager_app/data/model/income/income.dart';
+import 'package:money_manager_app/data/model/transaction.dart';
+import 'package:money_manager_app/provider/income_provider.dart';
+import 'package:money_manager_app/provider/user_provider.dart';
 
 final transactionsProvider =
     StateNotifierProvider<TransactionsNotifier, List<Transaction>>((ref) {
@@ -128,13 +132,24 @@ class TransactionsNotifier extends StateNotifier<List<Transaction>> {
     ),
   ];
 
-  void addTransaction(Transaction transaction) {
-    state = [...state, transaction];
-  }
+  // void addTransaction(Transaction transaction) {
+  //   state = [...state, transaction];
+  // }
 
   void removeTransaction(String id) {
     state = state.where((t) => t.id != id).toList();
   }
+
+
+  void addIncomeTransation(Transaction transaction,WidgetRef ref) {
+    state = [...state, transaction];
+    final userProfile = ref.watch(userDataProvider).requireValue;
+    ref.read(postIncomeProvider(Income(amount: transaction.amount, userId: userProfile.id , providerId: 1, description: transaction.description!)).future).then((value) {
+    debugPrint("Income saved: $value");
+  });
+  }
+
+
 
   // In a real app, you would fetch/save from/to Firestore here
   // Future<void> fetchTransactions() async { ... }

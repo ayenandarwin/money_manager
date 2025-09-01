@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Income {
 
- int get id; double get amount; int get userId; int get providerId; String get description; DateTime get createdAt; DateTime get updatedAt;
+ int? get id; double get amount; int get userId; int get providerId; String get description; DateTime? get createdAt; DateTime? get updatedAt;
 /// Create a copy of Income
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $IncomeCopyWith<$Res>  {
   factory $IncomeCopyWith(Income value, $Res Function(Income) _then) = _$IncomeCopyWithImpl;
 @useResult
 $Res call({
- int id, double amount, int userId, int providerId, String description, DateTime createdAt, DateTime updatedAt
+ int? id, double amount, int userId, int providerId, String description, DateTime? createdAt, DateTime? updatedAt
 });
 
 
@@ -65,16 +65,16 @@ class _$IncomeCopyWithImpl<$Res>
 
 /// Create a copy of Income
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? amount = null,Object? userId = null,Object? providerId = null,Object? description = null,Object? createdAt = null,Object? updatedAt = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? amount = null,Object? userId = null,Object? providerId = null,Object? description = null,Object? createdAt = freezed,Object? updatedAt = freezed,}) {
   return _then(_self.copyWith(
-id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as int,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int?,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
 as double,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
 as int,providerId: null == providerId ? _self.providerId : providerId // ignore: cast_nullable_to_non_nullable
 as int,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
-as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
-as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
-as DateTime,
+as String,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,
   ));
 }
 
@@ -159,7 +159,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  double amount,  int userId,  int providerId,  String description,  DateTime createdAt,  DateTime updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int? id,  double amount,  int userId,  int providerId,  String description,  DateTime? createdAt,  DateTime? updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Income() when $default != null:
 return $default(_that.id,_that.amount,_that.userId,_that.providerId,_that.description,_that.createdAt,_that.updatedAt);case _:
@@ -180,7 +180,7 @@ return $default(_that.id,_that.amount,_that.userId,_that.providerId,_that.descri
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  double amount,  int userId,  int providerId,  String description,  DateTime createdAt,  DateTime updatedAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int? id,  double amount,  int userId,  int providerId,  String description,  DateTime? createdAt,  DateTime? updatedAt)  $default,) {final _that = this;
 switch (_that) {
 case _Income():
 return $default(_that.id,_that.amount,_that.userId,_that.providerId,_that.description,_that.createdAt,_that.updatedAt);case _:
@@ -200,7 +200,7 @@ return $default(_that.id,_that.amount,_that.userId,_that.providerId,_that.descri
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  double amount,  int userId,  int providerId,  String description,  DateTime createdAt,  DateTime updatedAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int? id,  double amount,  int userId,  int providerId,  String description,  DateTime? createdAt,  DateTime? updatedAt)?  $default,) {final _that = this;
 switch (_that) {
 case _Income() when $default != null:
 return $default(_that.id,_that.amount,_that.userId,_that.providerId,_that.description,_that.createdAt,_that.updatedAt);case _:
@@ -215,16 +215,16 @@ return $default(_that.id,_that.amount,_that.userId,_that.providerId,_that.descri
 @JsonSerializable()
 
 class _Income implements Income {
-  const _Income({required this.id, required this.amount, required this.userId, required this.providerId, required this.description, required this.createdAt, required this.updatedAt});
+  const _Income({this.id, required this.amount, required this.userId, required this.providerId, required this.description, this.createdAt, this.updatedAt});
   factory _Income.fromJson(Map<String, dynamic> json) => _$IncomeFromJson(json);
 
-@override final  int id;
+@override final  int? id;
 @override final  double amount;
 @override final  int userId;
 @override final  int providerId;
 @override final  String description;
-@override final  DateTime createdAt;
-@override final  DateTime updatedAt;
+@override final  DateTime? createdAt;
+@override final  DateTime? updatedAt;
 
 /// Create a copy of Income
 /// with the given fields replaced by the non-null parameter values.
@@ -259,7 +259,7 @@ abstract mixin class _$IncomeCopyWith<$Res> implements $IncomeCopyWith<$Res> {
   factory _$IncomeCopyWith(_Income value, $Res Function(_Income) _then) = __$IncomeCopyWithImpl;
 @override @useResult
 $Res call({
- int id, double amount, int userId, int providerId, String description, DateTime createdAt, DateTime updatedAt
+ int? id, double amount, int userId, int providerId, String description, DateTime? createdAt, DateTime? updatedAt
 });
 
 
@@ -276,16 +276,16 @@ class __$IncomeCopyWithImpl<$Res>
 
 /// Create a copy of Income
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? amount = null,Object? userId = null,Object? providerId = null,Object? description = null,Object? createdAt = null,Object? updatedAt = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? amount = null,Object? userId = null,Object? providerId = null,Object? description = null,Object? createdAt = freezed,Object? updatedAt = freezed,}) {
   return _then(_Income(
-id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as int,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int?,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
 as double,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
 as int,providerId: null == providerId ? _self.providerId : providerId // ignore: cast_nullable_to_non_nullable
 as int,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
-as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
-as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
-as DateTime,
+as String,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,
   ));
 }
 
