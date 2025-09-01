@@ -2,7 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:money_manager_app/data/model/transactions.dart';
+import 'package:money_manager_app/data/model/transaction.dart';
 import 'package:money_manager_app/provider/common.dart';
 import 'package:money_manager_app/provider/transaction.dart';
 
