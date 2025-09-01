@@ -30,16 +30,33 @@ class _RecordsScreenState extends ConsumerState<RecordsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final transactions = ref.watch(transactionsProvider);
+    //final transactions = ref.watch(transactionsProvider);
     final formattedDate = DateFormat('MMM d').format(selectedDate);
     final dashboardAsync = ref.watch(dashboardDataProvider);
 
     // Group transactions by date
     final Map<DateTime, List<Transaction>> groupedTransactions = {};
-    for (var t in transactions) {
-      final date = DateTime(t.date.year, t.date.month, t.date.day);
-      groupedTransactions.putIfAbsent(date, () => []).add(t);
-    }
+    // for (var t in transactions) {
+    //   final date = DateTime(t.date.year, t.date.month, t.date.day);
+    //   groupedTransactions.putIfAbsent(date, () => []).add(t);
+    // }
+
+
+    final transactionsAsync = ref.watch(transactionDataProvider);
+    transactionsAsync.when(
+      data: (transactions) {
+        final Map<DateTime, List<Transaction>> groupedTransactions = {};
+        for (var t in transactions) {
+          final date = DateTime(t.date.year, t.date.month, t.date.day);
+          groupedTransactions.putIfAbsent(date, () => []).add(t);
+        }
+
+        // now you can use groupedTransactions safely
+      },
+      loading: () => CircularProgressIndicator(),
+      error: (err, stack) => Text('Error: $err'),
+    );
+
 
     final sortedDates =
         groupedTransactions.keys.toList()..sort((a, b) => b.compareTo(a));
@@ -66,79 +83,73 @@ class _RecordsScreenState extends ConsumerState<RecordsScreen> {
 
           return Column(
             children: [
-              _buildSummaryHeader(
-                context,
-                ref,
-                transactions,
-                formattedDate,
-                summary,
-              ),
+              transactionsAsync.when(
+      loading: () => const Center(child: CircularProgressIndicator()),
+      error: (err, _) => Center(child: Text('Error: $err')),
+      data: (transactions) {
+        final formattedDate = DateFormat.yMMMd().format(DateTime.now());
 
+        return Column(
+          children: [
+            _buildSummaryHeader(
+              context,
+              ref,
+              transactions,
+              formattedDate,
+              summary,
+            ),
+          ],
+        );
+      },
+    ),
+          
               Expanded(
-                child: ListView.builder(
-                  // itemCount: sortedDates.length,
-                  itemCount: weekly.data.length,
+  child: transactionsAsync.when(
+    data: (transactions) {
+      final Map<DateTime, List<Transaction>> groupedTransactions = {};
+      for (var t in transactions) {
+        final date = DateTime(t.date.year, t.date.month, t.date.day);
+        groupedTransactions.putIfAbsent(date, () => []).add(t);
+      }
 
-                  itemBuilder: (context, index) {
-                    final entry = weekly.data[index];
+      final sortedDates = groupedTransactions.keys.toList()
+        ..sort((a, b) => b.compareTo(a));
 
-                    final date = sortedDates[index];
-                    final dailyTransactions = groupedTransactions[date]!;
+      return ListView.builder(
+        itemCount: sortedDates.length,
+        itemBuilder: (context, index) {
+          final date = sortedDates[index];
+          final dailyTransactions = groupedTransactions[date]!;
 
-                    final dailyExpenses = dailyTransactions
-                        .where(
-                          (t) => t.type == TransactionType.expense,
-                          // entry.expense,
-                        )
-                        .fold(0.0, (sum, t) => sum + t.amount);
-                    final dailyIncome = dailyTransactions
-                        .where(
-                          (t) =>
-                              t.type ==
-                              //entry.income,
-                              TransactionType.income,
-                        )
-                        .fold(0.0, (sum, t) => sum + t.amount);
-
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 16.0,
-                            vertical: 8.0,
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                // DateFormat('MMM yyyy EEEE').format(date),
-                                entry.date,
-                                style: Theme.of(
-                                  context,
-                                ).textTheme.bodyMedium!.copyWith(
-                                  color: Colors.grey.shade500,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              //dailyExpense //dailyIncome  //
-                              Text(
-                                'Expenses: ${NumberFormat.currency(symbol: '', decimalDigits: 0).format(entry.expense)} Income: ${NumberFormat.currency(symbol: '', decimalDigits: 0).format(entry.income)}',
-                                style: Theme.of(context).textTheme.bodySmall!
-                                    .copyWith(color: Colors.grey.shade500),
-                              ),
-                            ],
-                          ),
-                        ),
-                        ...dailyTransactions.map(
-                          // (t) => _buildTransactionTile(context, t, ref),
-                          (t) => _buildTransactionTile(context, t, ref),
-                        ),
-                      ],
-                    );
-                  },
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Date header
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                child: Text(
+                  DateFormat('MMM d, yyyy').format(date),
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        color: Colors.grey.shade500,
+                        fontWeight: FontWeight.bold,
+                      ),
                 ),
               ),
+
+              // Transactions
+              ...dailyTransactions.map(
+                (t) => _buildTransactionTile(context, t, ref),
+              ),
+            ],
+          );
+        },
+      );
+    },
+    loading: () => const Center(child: CircularProgressIndicator()),
+    error: (err, stack) => Center(child: Text('Error: $err')),
+  ),
+),
+
               _buildSendAgainAvatars(),
             ],
           );

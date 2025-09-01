@@ -7,8 +7,7 @@ abstract class Expense with _$Expense {
   const factory Expense({
     required int id,
     required double amount,
-    required int userId,
-    required int providerId,
+    required int categoryId,
     required String description,
     required DateTime createdAt,
     required DateTime updatedAt,

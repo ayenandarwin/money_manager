@@ -4,7 +4,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:money_manager_app/data/model/income/income.dart';
 import 'package:money_manager_app/data/model/transaction.dart';
 import 'package:money_manager_app/provider/income_provider.dart';
+import 'package:money_manager_app/provider/service_provider.dart';
 import 'package:money_manager_app/provider/user_provider.dart';
+
+
+
+final transactionDataProvider = FutureProvider.autoDispose<List<Transaction>>((
+  ref,
+) async {
+  final transactionRepository = ref.watch(transactionRepositoryProvider);
+  return transactionRepository.getTransactions();
+});
+
 
 final transactionsProvider =
     StateNotifierProvider<TransactionsNotifier, List<Transaction>>((ref) {

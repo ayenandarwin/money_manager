@@ -4,12 +4,14 @@ import 'package:money_manager_app/data/repository/dashboard_repository.dart';
 import 'package:money_manager_app/data/repository/expense_repository.dart';
 import 'package:money_manager_app/data/repository/getprovier_repository.dart';
 import 'package:money_manager_app/data/repository/income_repository.dart';
+import 'package:money_manager_app/data/repository/transaction_repository.dart';
 import 'package:money_manager_app/data/repository/user_repository.dart';
 import 'package:money_manager_app/service/remote/category.dart';
 import 'package:money_manager_app/service/remote/dashboard.dart';
 import 'package:money_manager_app/service/remote/expense.dart';
 import 'package:money_manager_app/service/remote/getprovider.dart';
 import 'package:money_manager_app/service/remote/income.dart';
+import 'package:money_manager_app/service/remote/transaction.dart';
 import 'package:money_manager_app/service/remote/user.dart';
 
 final userServiceProvider = Provider((ref) => UserService());
@@ -46,4 +48,10 @@ final getProviderServiceProvider = Provider((ref) => GetProviderService());
 final getProviderRepositoryProvider = Provider((ref) {
   final getProviderService = ref.watch(getProviderServiceProvider);
   return GetProviderRepository(getProviderService: getProviderService);
+});
+
+final transactionServiceProvider = Provider((ref) => TransactionService());
+final transactionRepositoryProvider = Provider((ref) {
+  final transactionService = ref.watch(transactionServiceProvider);
+  return TransactionRepository(transactionService: transactionService);
 });
