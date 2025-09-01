@@ -17,7 +17,6 @@ class Transaction {
     this.description,
   });
 
-  // Factory constructor to create a Transaction from a map (e.g., from Firestore)
   factory Transaction.fromMap(Map<String, dynamic> map) {
     return Transaction(
       id: map['id'] as String,
@@ -33,7 +32,6 @@ class Transaction {
     );
   }
 
-  // Convert Transaction to a map (e.g., for Firestore)
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -45,8 +43,6 @@ class Transaction {
     };
   }
 }
-
-//new
 
 enum TransactionTypes { income, expense }
 
@@ -67,7 +63,10 @@ class TransactionModel {
     required this.type,
   });
 
-  factory TransactionModel.fromJson(Map<String, dynamic> json, TransactionType type) {
+  factory TransactionModel.fromJson(
+    Map<String, dynamic> json,
+    TransactionType type,
+  ) {
     return TransactionModel(
       id: json['id'],
       amount: json['amount'],

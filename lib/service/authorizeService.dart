@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:money_manager_app/service/exception/http_exception.dart';
@@ -21,7 +22,7 @@ class AuthService {
   }) async {
     try {
       var encodeJson = json.encode({'email': email, 'password': password});
-      print(encodeJson);
+      debugPrint(encodeJson);
       var response = await http.post(
         Uri.parse(APIURL.loginUrl),
         body: encodeJson,
@@ -32,7 +33,7 @@ class AuthService {
       );
       var userData = jsonDecode(response.body);
 
-      print('Response ************** $userData');
+      debugPrint('Response ************** $userData');
       return userData;
     } on SocketException {
       throw FetchDataException('No Internet connection');

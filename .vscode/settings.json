@@ -1,3 +1,4 @@
 {
-    "cmake.sourceDirectory": "D:/Aye Nandar/money_manager_app/linux"
+  "cmake.sourceDirectory": "D:/Aye Nandar/money_manager_app/linux",
+  "dart.flutterSdkPath": ".fvm/versions/3.32.2"
 }

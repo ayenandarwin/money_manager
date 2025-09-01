@@ -6,7 +6,6 @@ import 'package:money_manager_app/service/authorizeService.dart';
 import 'package:money_manager_app/service/hive_service.dart';
 import 'package:money_manager_app/utils/color.dart';
 import 'package:money_manager_app/utils/global.dart';
-import 'package:money_manager_app/utils/sharedPref.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -260,7 +259,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                                         passwordController.text,
                                                   )
                                                   .then((value) async {
-                                                
                                                     var status =
                                                         value["accessToken"];
                                                     if (status.isNotEmpty) {
@@ -272,16 +270,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                                         //   key: SharedPref.token,
                                                         //   value: "$token",
                                                         // );
-                                                        await HiveCacheManager().saveToken(token);
-
-
+                                                        await HiveCacheManager()
+                                                            .saveToken(token);
                                                       }
 
                                                       debugPrint(
                                                         'token $token',
                                                       );
                                                       if (_remember) {
-                                                        print("Remember");
+                                                        debugPrint("Remember");
                                                       }
 
                                                       Global.isLogIn = true;

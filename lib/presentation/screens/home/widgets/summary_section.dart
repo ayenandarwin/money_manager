@@ -21,7 +21,7 @@ class SummarySection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16.0),
-      color: AppColors.primaryBackground, 
+      color: AppColors.primaryBackground,
       child: Column(
         children: [
           Row(
@@ -48,8 +48,7 @@ class SummarySection extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                     color: AppColors.primaryText,
                   ),
-                  onChanged: (String? newValue) {
-                  },
+                  onChanged: (String? newValue) {},
                   items:
                       <String>[
                         'Jan',
